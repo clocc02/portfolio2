@@ -1,0 +1,13 @@
+PORTFOLIO BTS SIO SISR — VERSION POUR GITHUB PAGES
+
+1. Décompressez le fichier ZIP sur votre ordinateur.
+2. Ouvrez votre dépôt GitHub : https://github.com/clocc02/portfolio1
+3. Cliquez sur Add file > Upload files.
+4. Envoyez le CONTENU du dossier portfolio-github-ready (index.html et les autres pages HTML, et le dossier assets), pas le fichier ZIP ni le dossier parent.
+5. Validez avec Commit changes.
+6. Settings > Pages > Deploy from a branch > main > /(root) > Save.
+7. Votre site sera accessible après le déploiement : https://clocc02.github.io/portfolio1/
+
+Le rapport PDF est optimisé pour le web. Il conserve ses 15 pages et son contenu texte mais compresse les images. Le CV original est conservé.
+
+ATTENTION A LA CONFIDENTIALITE : ce portfolio inclut un CV (coordonnées privées) et un rapport de stage (informations internes et images). Verifiez que vous avez le droit de les publier avant de mettre le dépôt en ligne. Si nécessaire supprimez ces documents du dossier assets/documents et retirez les liens correspondants dans les pages HTML.
