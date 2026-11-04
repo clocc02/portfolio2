@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="#090f1b" name="theme-color"/>
+<meta content="Une approche par script pour réinitialiser l’adresse des serveurs DNS d’une carte réseau active." name="description"/>
+<meta content="website" property="og:type"/>
+<meta content="Automatisation de la configuration DNS en PowerShell" property="og:title"/>
+<meta content="Une approche par script pour réinitialiser l’adresse des serveurs DNS d’une carte réseau active." property="og:description"/>
+<title>Automatisation de la configuration DNS en PowerShell — Ilan Breton | BTS SIO SISR</title>
+<link href="assets/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<script>
+    // Thème préféré sauvegardé entre les pages (aucun compte nécessaire).
+    (function () {
+      var theme = 'dark';
+      try {
+        var saved = localStorage.getItem('ilan-portfolio-theme');
+        if (saved === 'dark' || saved === 'light') theme = saved;
+      } catch (e) { /* Le site fonctionne aussi sans stockage. */ }
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.classList.add('js-enabled');
+    }());
+  </script>
+<link href="assets/css/style.css" rel="stylesheet"/>
+<script defer="" src="assets/js/main.js"></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Aller au contenu principal</a>
+<header class="site-header">
+<div class="container nav-wrap">
+<a aria-label="Ilan Breton, retour à l'accueil" class="brand" href="index.html">
+<span class="brand-mark">IB</span><span class="brand-copy"><b>Ilan Breton</b><small>PORTFOLIO / BTS SIO SISR</small></span>
+</a>
+<nav aria-label="Navigation principale"><ul class="nav-links" id="main-nav"><li><a href="index.html">Accueil</a></li>
+<li><a href="a-propos.html">À propos</a></li>
+<li><a aria-current="page" href="projets.html">Projets</a></li>
+<li><a href="stage.html">Stage</a></li>
+<li><a href="veille.html">Veille</a></li>
+<li><a href="competences.html">Compétences</a></li>
+<li><a href="documents.html">Documents</a></li>
+<li><a href="contact.html">Contact</a></li></ul></nav>
+<a class="btn btn-ghost btn-small header-contact" href="contact.html">Me contacter <span aria-hidden="true">↗</span></a>
+<button aria-label="Activer le mode clair" class="theme-toggle" data-theme-toggle="" title="Activer le mode clair" type="button">
+<svg aria-hidden="true" class="theme-icon-sun" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2m0 16v2M4.93 4.93l1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"></path></svg>
+<svg aria-hidden="true" class="theme-icon-moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" viewbox="0 0 24 24"><path d="M20.5 14.4A8.5 8.5 0 0 1 9.6 3.5 8.5 8.5 0 1 0 20.5 14.4z"></path></svg>
+<span class="theme-toggle-label">Mode clair</span>
+</button>
+<button aria-controls="main-nav" aria-expanded="false" aria-label="Ouvrir ou fermer le menu" class="menu-toggle" type="button"><span></span><span></span><span></span></button>
+</div>
+</header>
+<main class="page-main" id="main"><section class="page-hero"><div class="container"><div class="breadcrumb"><a href="index.html">Accueil</a><span>/</span><b>Projets / Automatisation de la configuration DNS en PowerShell</b></div><div class="eyebrow">Fiche projet</div><h1>Automatisation de la configuration DNS en PowerShell</h1><p>Une approche par script pour réinitialiser l’adresse des serveurs DNS d’une carte réseau active.</p></div></section>
+<section class="section-narrow"><div class="container"><a class="text-link" href="projets.html" style="margin-bottom:25px">← Retour aux réalisations</a><div class="detail-grid"><div class="detail-content">
+<article class="detail-card"><div class="eyebrow">01 / Contexte</div><h2 style="margin-top:15px">Pourquoi ce travail ?</h2><p>Le portfolio de départ présente un script PowerShell visant à passer d’une configuration DNS fixe à l’obtention automatique des serveurs DNS sur une interface réseau.</p></article>
+<article class="detail-card"><div class="eyebrow">02 / Démarche</div><h2 style="margin-top:15px">Comment j’ai procédé</h2><ul><li>Identifier une interface réseau active avec Get-NetAdapter.</li><li>Récupérer l’index de cette interface.</li><li>Réinitialiser les serveurs DNS configurés manuellement avec Set-DnsClientServerAddress.</li></ul></article>
+<div class="detail-card"><h2>Extrait PowerShell commenté</h2><p>Exemple pédagogique simplifié inspiré de l’extrait du dossier, corrigé sur la syntaxe de filtrage. Il cible la première carte active détectée.</p><pre class="code-block"><code><span class="code-comment"># Sélection d’une interface réseau active</span>
+$interface = Get-NetAdapter |
+    Where-Object { $_.Status -eq 'Up' } |
+    Select-Object -First 1
+
+<span class="code-comment"># Retour aux serveurs DNS automatiques</span>
+if ($interface) {
+    Set-DnsClientServerAddress `
+        -InterfaceIndex $interface.ifIndex `
+        -ResetServerAddresses
+}</code></pre><div class="note" style="margin-top:17px"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.65" viewbox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M12 11v6m0-10v.1"></path></svg><span><strong>Précaution :</strong> cette modification nécessite généralement des droits administrateur. Dans un contexte réel, il faut choisir explicitement la bonne interface et vérifier le résultat.</span></div></div>
+<article class="detail-card"><div class="eyebrow">03 / Retour d’expérience</div><h2 style="margin-top:15px">Ce que cette réalisation illustre</h2><p>Cette démarche illustre l’intérêt de l’automatisation pour des opérations de configuration répétitives. L’extrait présenté ci-dessous est une version pédagogique simplifiée, à adapter et tester avant utilisation réelle.</p></article>
+<article class="detail-card"><div class="eyebrow">04 / Dossier de preuves</div><h2 style="margin-top:15px">Pièces à compléter</h2><p>Ajouter le script complet après vérification, le contexte de test et des captures avant/après (sans exposer des adresses internes sensibles).</p><div class="note"><svg aria-hidden="true" class="" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.65" viewbox="0 0 24 24"><path d="M6 2h8l5 5v14a1 1 0 0 1-1 1H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Z"></path><path d="M14 2v6h5M8 13h8M8 17h8"></path></svg><span>Les captures, annexes et documents n’ont pas été inclus dans le fichier HTML partagé. Aucun justificatif n’est inventé dans cette version.</span></div></article>
+<nav aria-label="Navigation entre réalisations" class="detail-next"><a class="btn btn-ghost" href="projets.html">← Tous les projets</a><a class="btn btn-primary" href="projet-kace.html">Le projet KACE →</a></nav>
+</div><aside class="detail-aside"><span class="pill pill-green">Mission de stage</span><h3 style="margin-top:20px">Fiche synthétique</h3><dl class="detail-meta"><div><dt>Réalisation</dt><dd>Automatisation de la configuration DNS en PowerShell</dd></div><div><dt>Cadre</dt><dd>Mission de stage</dd></div><div><dt>Technologies / outils</dt><dd>PowerShell, Windows, DNS</dd></div></dl><h3 style="font-size:16px;margin-top:27px">Notions mobilisées</h3><div class="chip-list"><span class="chip">PowerShell</span><span class="chip">Configuration réseau Windows</span><span class="chip">Automatisation</span></div><a class="text-link" href="competences.html" style="margin-top:28px">Voir les compétences ↗</a></aside></div></div></section><section class="section-narrow"><div class="container"><div class="section-head"><div><div class="eyebrow">Documenter la mission</div><h2>Photographie &amp; preuve.</h2></div></div><div class="detail-proof-grid"><figure class="gallery-card evidence-photo"><a aria-label="Agrandir : Poste informatique utilisé durant le stage" class="gallery-image" href="assets/img/stage/poste-de-travail.webp" rel="noopener" target="_blank"><img alt="Poste informatique utilisé durant le stage" decoding="async" loading="lazy" src="assets/img/stage/poste-de-travail.webp"/></a><figcaption>Poste informatique utilisé durant le stage</figcaption></figure><div class="content-card"><h3>Source : rapport de stage 2026</h3><p>Cette photographie est issue du rapport de première année au sein d’Euralis. Le PDF contient davantage de contexte sur les étapes, les difficultés et les apprentissages de cette mission.</p><a class="btn btn-primary" href="assets/documents/RAPPORT-DE-STAGE.pdf" rel="noopener" target="_blank">Lire le rapport ↗</a></div></div></div></section></main>
+<footer class="site-footer">
+<div class="container footer-top">
+<div><a class="brand" href="index.html"><span class="brand-mark">IB</span><span class="brand-copy"><b>Ilan Breton</b><small>PORTFOLIO / BTS SIO SISR</small></span></a><p>Étudiant en BTS Services Informatiques aux Organisations, option Solutions d’Infrastructure, Systèmes et Réseaux.</p></div>
+<div><div class="footer-heading">Explorer le site</div><div class="footer-links"><a href="index.html">Accueil</a>
+<a href="a-propos.html">À propos</a>
+<a href="projets.html">Projets</a>
+<a href="stage.html">Stage</a>
+<a href="veille.html">Veille</a>
+<a href="competences.html">Compétences</a>
+<a href="contact.html">Contact</a>
+<a href="documents.html">Documents</a></div></div>
+<div><div class="footer-heading">Échanger</div><div class="footer-contact"><a href="mailto:ilan.breton292@gmail.com">E-mail ↗</a><a href="contact.html">Page de contact ↗</a><span class="tagline">Pau · France</span></div></div>
+</div>
+<div class="container footer-bottom"><span>© 2026 Ilan Breton — Portfolio personnel.</span><span>Conçu en HTML / CSS / JavaScript</span></div>
+</footer>
+<div aria-live="polite" class="toast" id="toast" role="status"></div>
+</body>
+</html>
